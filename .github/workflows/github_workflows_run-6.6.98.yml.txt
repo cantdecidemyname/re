@@ -1,0 +1,45 @@
+name: Run single 6.6.98 build
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'build pipeline version (e.g. android15-6.6)'
+        required: true
+        default: 'android15-6.6'
+      android_version:
+        description: 'android branch (e.g. android15)'
+        required: true
+        default: 'android15'
+      kernel_version:
+        description: 'kernel major.minor (set to 6.6)'
+        required: true
+        default: '6.6'
+      sublevel:
+        description: 'kernel sublevel (set to 98)'
+        required: true
+        default: '98'
+      os_patch_level:
+        description: 'OS patch level (e.g. 2026-08 or lts-XX)'
+        required: true
+        default: '2026-08'
+      feature_set:
+        description: 'Feature set'
+        required: true
+        default: 'All'
+      variant:
+        description: 'Variant'
+        required: false
+        default: 'Normal'
+
+jobs:
+  build-6.6.98:
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ github.event.inputs.version }}
+      android_version: ${{ github.event.inputs.android_version }}
+      kernel_version: ${{ github.event.inputs.kernel_version }}
+      sublevel: ${{ github.event.inputs.sublevel }}
+      os_patch_level: ${{ github.event.inputs.os_patch_level }}
+      feature_set: ${{ github.event.inputs.feature_set }}
+      variant: ${{ github.event.inputs.variant }}
